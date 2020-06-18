@@ -19,6 +19,21 @@ Some branches will have a beginning and an end state. These are marked with the 
 	- Local mssql server or [Docker Desktop](https://www.docker.com/products/docker-desktop) to run the sql container
 	- [.net core sdk 3.1.301](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 2. Clone this repository into your local machine using the terminal (Mac), CMD (Windows), or a GUI tool like SourceTree.
+3. Update the connection string in app.settings if you are using your own sql server
+
+	OR
+	
+   `docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=@#^fcIen&*asd" -p 1433:1433 --name sql -d mcr.microsoft.com/mssql/server`
+    
+    to run the sql server docker container
+       
+4. Run these commands from the folder root
+	```
+	dotenet restore
+	dotnet tool restore
+	dotnet ef database update --project Beam.Server/Beam.Server.csproj 
+	```
+	
 # Blazor Beams!
 
 Features
@@ -27,4 +42,4 @@ Features
 - SQL Server Database
 - EF Core
 
-Develop, Build and Run in a container locally (with docker desktop and the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension or in [Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/)3. [Course-specific instructions]
+Develop, Build and Run in a container locally (with docker desktop and the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension or in [Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/)
