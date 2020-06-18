@@ -1,0 +1,43 @@
+@page "/frequency/{id}"
+@inject DataService data
+
+
+<p>
+    <div class="card">
+        <div class="card-body">
+            <span class="card-title">Cast a New Ray:</span>
+            <div class="input-group">
+                <input @bind="newRayText" class="form-control" />
+                <div class="input-group-append">
+                    <button @onclick="CastRay" type="button" class="btn btn-outline-secondary"><span class="oi oi-audio"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p>
+@foreach (var ray in data.Rays)
+{
+    <p>
+        <RayItem ray="@ray" />
+    </p>
+}
+
+
+@code{
+    [Parameter]
+    public string Id { get; set; }
+
+    public string newRayText { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        data.UpdatedRays += StateHasChanged;
+        data.SelectedFrequency = Int32.Parse(Id);
+    }
+    
+    async Task CastRay()
+    {
+        await data.CreateRay(newRayText);
+        newRayText = "";
+    }
+}

@@ -1,0 +1,38 @@
+@inject DataService data
+
+@if (data.Frequencies != null)
+{
+    @foreach (var frequency in data.Frequencies)
+    {
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href=@($"frequency/{frequency.Id}") Match="NavLinkMatch.All">
+                <span class="oi oi-audio-spectrum" aria-hidden="true"></span>
+                <span> @frequency.Name </span>
+            </NavLink>
+        </li>
+    }
+}
+<li class="nav-item px-3">
+    <div class="input-group">
+        <input @bind="name" placeholder="New Frequency" class="form-control" />
+        <div class="input-group-append">
+            <button @onclick="AddFrequencyClick" type="button" class="btn btn-secondary"><span class="oi oi-plus"></span></button>
+        </div>
+    </div>
+</li>
+
+@code
+{
+    private string name = "";
+    protected override void OnInitialized()
+    {
+        data.UdpatedFrequencies += StateHasChanged;
+        data.GetFrequencies().ConfigureAwait(false);
+    }
+
+    void AddFrequencyClick()
+    {
+        data.AddFrequency(name).ConfigureAwait(false);
+        name = "";
+    }
+}
