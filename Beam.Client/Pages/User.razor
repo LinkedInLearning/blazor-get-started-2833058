@@ -1,0 +1,20 @@
+@page "/User"
+@using Beam.Shared
+@inject DataService data
+<h2>User Rays</h2>
+
+@foreach (var ray in Rays)
+{
+    <p>
+        <RayItem ray="@ray" />
+    </p>
+}
+
+@code{
+    List<Ray> Rays = new List<Ray>();
+
+        protected override async Task OnInitializedAsync()
+        {
+            Rays = await data.GetMyRays();
+        }
+}
