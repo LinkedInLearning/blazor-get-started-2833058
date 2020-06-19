@@ -1,4 +1,4 @@
-@page "/frequency/{id}"
+@page "/frequency/{id:int}"
 @inject DataService data
 
 
@@ -25,14 +25,14 @@
 
 @code{
     [Parameter]
-    public string Id { get; set; }
+    public int Id { get; set; }
 
     public string newRayText { get; set; }
 
     protected override void OnParametersSet()
     {
         data.UpdatedRays += StateHasChanged;
-        data.SelectedFrequency = Int32.Parse(Id);
+        data.SelectedFrequency = Id;
     }
     
     async Task CastRay()
