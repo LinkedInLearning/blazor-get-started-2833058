@@ -2,7 +2,7 @@
 @page "/User/{name}"
 @layout UserLayout
 @using Beam.Shared
-@inject DataService data
+@inject IDataService data
 <h2>User Rays</h2>
 
 @foreach (var ray in Rays)

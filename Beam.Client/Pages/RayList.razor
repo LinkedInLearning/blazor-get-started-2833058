@@ -1,5 +1,5 @@
 @page "/frequency/{id:int}"
-@inject DataService data
+@inject IDataService data
 
 <RayInput @bind-newRayText="newRayText" RayCast="@RayCast" />
 <div class="spinner-border" role="status" hidden="@HideLoading">

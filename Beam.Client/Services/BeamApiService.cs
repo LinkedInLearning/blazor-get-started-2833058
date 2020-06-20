@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Beam.Client.Services
 {
-    public class BeamApiService
+    public class BeamApiService : IBeamApiService
     {
         HttpClient http;
 
