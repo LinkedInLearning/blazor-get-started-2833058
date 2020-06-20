@@ -13,11 +13,11 @@
 
 @code{
     [Parameter]
-    public string name { get; set; }
+    public string Name { get; set; }
     List<Ray> Rays = new List<Ray>();
 
     protected override async Task OnInitializedAsync()
     {
-        Rays = await data.GetUserRays(name);
+        Rays = await data.GetUserRays(Name);
     }
 }
