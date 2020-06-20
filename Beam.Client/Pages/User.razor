@@ -15,8 +15,14 @@
     [Parameter]
     public string Name { get; set; }
     List<Ray> Rays = new List<Ray>();
-
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized(){
+        data.UpdatedRays += async () =>
+        {
+            Rays = await data.GetUserRays(Name);
+            StateHasChanged();
+        };
+    }
+    protected override async Task OnParametersSetAsync()
     {
         Rays = await data.GetUserRays(Name);
     }
