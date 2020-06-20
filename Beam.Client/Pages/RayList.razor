@@ -9,7 +9,10 @@
             <div class="input-group">
                 <input @bind="newRayText" class="form-control" />
                 <div class="input-group-append">
-                    <button @onclick="CastRay" type="button" class="btn btn-outline-secondary"><span class="oi oi-audio"></span></button>
+                    <button @onclick="ClearText" type="button" class="btn btn-outline-secondary">
+                        <span class="oi oi-circle-x"></span></button>
+                    <button @onclick="CastRay" type="button" class="btn btn-outline-secondary">
+                        <span class="oi oi-audio"></span></button>
                 </div>
             </div>
         </div>
@@ -31,13 +34,24 @@
 
     protected override void OnParametersSet()
     {
-        data.UpdatedRays += StateHasChanged;
+        data.UpdatedRays += UpdateForNewRays;
         data.SelectedFrequency = Id;
+    }
+
+    void UpdateForNewRays(){
+        if (!data.Rays.Any(r => r.UserName == data.CurrentUser.Name))
+            newRayText = $"Hello, My Name is {data.CurrentUser.Name}";
+        StateHasChanged();
     }
     
     async Task CastRay()
     {
         await data.CreateRay(newRayText);
+        newRayText = "";
+    }
+
+    void ClearText()
+    {
         newRayText = "";
     }
 }
