@@ -1,0 +1,35 @@
+@inject DataService data
+<p>
+    <div class="card">
+        <div class="card-body">
+            <span class="card-title">Cast a New Ray:</span>
+            <div class="input-group">
+                <input @bind="newRayText" class="form-control" />
+                <div class="input-group-append">
+                    <button @onclick="ClearText" type="button" class="btn btn-outline-secondary">
+                        <span class="oi oi-circle-x"></span></button>
+                    <button @onclick="CastRay" type="button" class="btn btn-outline-secondary">
+                        <span class="oi oi-audio"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p>
+
+@code{
+    [Parameter]
+    public string newRayText { get; set; }
+    [Parameter]
+    public EventCallback<string> newRayTextChanged { get; set; }
+
+    async Task CastRay()
+    {
+        await data.CreateRay(newRayText);
+        newRayText = "";
+    }
+
+    void ClearText()
+    {
+        newRayText = "";
+    }
+}
