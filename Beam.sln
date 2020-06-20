@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beam.Shared", "Beam.Shared\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beam.Data", "Beam.Data\Beam.Data.csproj", "{55E01C05-C581-4109-B751-825ECB93DBA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beam.Tests", "Beam.Tests\Beam.Tests.csproj", "{3302BC24-32C1-4162-9FA6-8A1166E34870}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{3404FB23-A71D-4ECB-8D4E-19763D57EA7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3404FB23-A71D-4ECB-8D4E-19763D57EA7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3404FB23-A71D-4ECB-8D4E-19763D57EA7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3302BC24-32C1-4162-9FA6-8A1166E34870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3302BC24-32C1-4162-9FA6-8A1166E34870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3302BC24-32C1-4162-9FA6-8A1166E34870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3302BC24-32C1-4162-9FA6-8A1166E34870}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
