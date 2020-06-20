@@ -18,9 +18,13 @@
     public string newRayText { get; set; }
     [Parameter]
     public EventCallback<string> newRayTextChanged { get; set; }
+    [Parameter]
+    public EventCallback<string> RayCast { get; set; }
+
 
     async Task CastRay()
     {
+        await RayCast.InvokeAsync(newRayText);
         await data.CreateRay(newRayText);
         newRayText = "";
     }

@@ -1,8 +1,10 @@
 @page "/frequency/{id:int}"
 @inject DataService data
 
-
-<RayInput @bind-newRayText="newRayText" />
+<RayInput @bind-newRayText="newRayText" RayCast="@RayCast" />
+<div class="spinner-border" role="status" hidden="@HideLoading">
+  <span class="sr-only">Loading...</span>
+</div>
 @foreach (var ray in data.Rays)
 {
     <p>
@@ -10,12 +12,14 @@
     </p>
 }
 
-
 @code{
     [Parameter]
     public int Id { get; set; }
 
     public string newRayText { get; set; }
+
+    public bool HideLoading { get; set; } = false;
+
 
     protected override void OnParametersSet()
     {
@@ -25,10 +29,15 @@
 
     void UpdateForNewRays()
     {
+        HideLoading = true;
         if (!data.Rays.Any(r => r.UserName == data.CurrentUser.Name))
             newRayText = $"Hello, My Name is {data.CurrentUser.Name}";
         StateHasChanged();
     }
 
+    void RayCast()
+    {
+        HideLoading = false;
+    }
 
 }
