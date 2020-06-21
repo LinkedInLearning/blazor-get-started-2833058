@@ -33,7 +33,7 @@ namespace Beam.Tests
 
 
         [Fact]
-        public void IndexShowsSimpleHeaderWhenUnAuthorized()
+        public void IndexShowsLoginLinkWhenUnAuthorized()
         {
             Services.AddAuthenticationServices(TestAuthenticationStateProvider.CreateUnauthenticationState(), AuthorizationResult.Failed());
 
