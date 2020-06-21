@@ -29,6 +29,5 @@ namespace Beam.Client.Services
 
         Task UnPrismRay(int RayId);
 
-        Task<User> GetOrCreateUser(string newName = null);
     }
 }

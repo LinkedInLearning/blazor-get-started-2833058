@@ -3,10 +3,7 @@
 
 <span>Username</span>
 <div class="input-group">
-    <input @bind="name" class="form-control" />
-    <div class="input-group-append">
-        <button @onclick="UpdateUser" type="button" class="btn btn-outline-secondary">Update</button>
-    </div>
+    <label class="form-control">@name</label>
 </div>
 
 @code{
@@ -15,9 +12,5 @@
     protected override void OnInitialized()
     {
         name = data.CurrentUser.Name;
-    }
-    async Task UpdateUser()
-    {
-        await data.GetOrCreateUser(name);
     }
 }
