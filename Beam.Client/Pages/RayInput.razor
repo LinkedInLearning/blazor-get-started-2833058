@@ -1,36 +1,40 @@
 @inject IDataService data
 <p>
     <Card Title="Cast a New Ray:">
+        <EditForm OnValidSubmit="CastRay" Model="@newRay">
+            <DataAnnotationsValidator />
         <div class="input-group">
-            <input @bind="newRayText" class="form-control" />
+            <InputTextArea @bind-Value="newRay.Text" class="form-control" />
             <div class="input-group-append">
                 <button @onclick="ClearText" type="button" class="btn btn-outline-secondary">
                     <span class="oi oi-circle-x"></span></button>
-                <button @onclick="CastRay" type="button" class="btn btn-outline-secondary">
+                <button type="submit" class="btn btn-outline-secondary">
                     <span class="oi oi-audio"></span></button>
             </div>
         </div>
+         <ValidationMessage For="@(() => newRay.Text)" />
+        </EditForm>
     </Card>
 </p>
 
 @code{
     [Parameter]
-    public string newRayText { get; set; }
+    public RayToCast newRay { get; set; } = new RayToCast();
     [Parameter]
-    public EventCallback<string> newRayTextChanged { get; set; }
+    public EventCallback<RayToCast> newRayChanged {get;set;}
     [Parameter]
     public EventCallback<string> RayCast { get; set; }
 
 
     async Task CastRay()
     {
-        await RayCast.InvokeAsync(newRayText);
-        await data.CreateRay(newRayText);
-        newRayText = "";
+         await RayCast.InvokeAsync(newRay.Text);        
+        await data.CreateRay(newRay.Text);
+        newRay.Text = "";
     }
 
     void ClearText()
     {
-        newRayText = "";
+        newRay.Text = "";
     }
 }

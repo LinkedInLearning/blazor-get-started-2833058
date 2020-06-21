@@ -1,16 +1,18 @@
 @inherits TestComponentBase
 <SnapshotTest Description="Ray Input With Parameter" Setup="@Setup">
     <TestInput>
-        <RayInput newRayText="test text" />
+        <RayInput newRay="@(new RayToCast() { Text ="test text" })" />
     </TestInput>
     <ExpectedOutput>
         <p>
         </p>
             <Card Title="Cast a New Ray:">
-                <div class="input-group">
-                    <input class="form-control" value="test text" >
-                    <div diff:ignore></div>
-                </div>
+                <form>
+                    <div class="input-group">
+                        <textarea class:ignore value="test text"></textarea>
+                        <div diff:ignore> </div>
+                    </div>
+                </form>
             </Card>
         <p></p>
     </ExpectedOutput>
@@ -22,3 +24,80 @@
         }
     }
 </SnapshotTest>
+
+<Fixture Description="Ray Not Created for empty Input" Test="EmptyInputDoesntCreate">
+    <ComponentUnderTest>
+        <RayInput newRay="@(new RayToCast())" />
+    </ComponentUnderTest>
+    <Fragment>
+        <p></p>
+        <Card title="Cast a New Ray:">
+            <form>
+                <div class="input-group">
+                    <textarea class="form-control invalid" value=""></textarea>
+                    <div diff:ignore></div>
+                </div>
+                <div class="validation-message">You can't send an empty Ray!</div>
+            </form>
+        </Card>
+        <p></p>
+    </Fragment>
+</Fixture>
+
+<Fixture Description="Ray Created With Valid Input" Test="ValidInputCallsCreate">
+    <ComponentUnderTest>
+        <RayInput newRay="@(new RayToCast(){ Text = "Test" })" />
+    </ComponentUnderTest>
+    <Fragment>
+        <p></p>
+        <Card title="Cast a New Ray:">
+            <form>
+                <div class="input-group">
+                    <textarea class="form-control valid" value=""></textarea>
+                    <div diff:ignore></div>
+                </div>                
+            </form>
+        </Card>
+        <p></p>
+    </Fragment>
+</Fixture>
+@code
+{
+    public void EmptyInputDoesntCreate(Fixture fixture)
+    {
+        // Arrange
+        var dataService = new TestDataService();
+        fixture.Services.AddSingleton<IDataService>(dataService);
+        var cut = fixture.GetComponentUnderTest<RayInput>();
+
+        bool updateTriggered = false;
+        dataService.UpdatedRays += () => updateTriggered = true;
+
+        // Act - cast the ray 
+        cut.Find("form").Submit();
+
+        // Assert the update was not triggered, and the markup has the validation message 
+        var expected = fixture.GetFragment();
+        Assert.False(updateTriggered);
+        cut.MarkupMatches(expected);
+    }
+
+    public void ValidInputCallsCreate(Fixture fixture)
+    {
+        // Arrange
+        var dataService = new TestDataService();
+        fixture.Services.AddSingleton<IDataService>(dataService);
+        var cut = fixture.GetComponentUnderTest<RayInput>();
+
+        bool updateTriggered = false;
+        dataService.UpdatedRays += () => updateTriggered = true;
+
+        // Act - cast the ray 
+        cut.Find("form").Submit();
+
+        // Assert the update was triggered, and the text value is empty
+        var expected = fixture.GetFragment();
+        Assert.True(updateTriggered);
+        cut.MarkupMatches(expected);
+    }
+}
