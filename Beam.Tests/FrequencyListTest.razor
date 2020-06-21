@@ -18,6 +18,16 @@
     </Fragment>
 </Fixture>
 
+<Fixture Description="Add a new empty Frequency doesn't appear in the list" Test="EmptyFrequencyDoesntAdd">
+    <ComponentUnderTest>
+        <FrequencyList></FrequencyList>
+    </ComponentUnderTest>
+    <Fragment>
+        <li diff:ignore></li>
+        <li diff:ignore></li>
+    </Fragment>
+</Fixture>
+
 @code
 {
     public void TestFrequenceyListAdd(Fixture fixture)
@@ -29,7 +39,22 @@
 
         // Act - click button to add frequency
         cut.Find("input").Change("Hi");
-        cut.Find("button").Click();
+        cut.Find("form").Submit();
+
+        // Assert that the counter was incremented
+        var expected = fixture.GetFragment();
+        cut.MarkupMatches(expected);
+    }
+
+    public void EmptyFrequencyDoesntAdd(Fixture fixture)
+    {
+        fixture.Services.AddSingleton<NavigationManager, MockNavigationManager>();
+        fixture.Services.AddSingleton<IDataService, TestDataService>();
+        // Arrange
+        var cut = fixture.GetComponentUnderTest<FrequencyList>();
+
+        // Act - click button to add frequency
+        cut.Find("form").Submit();
 
         // Assert that the counter was incremented
         var expected = fixture.GetFragment();

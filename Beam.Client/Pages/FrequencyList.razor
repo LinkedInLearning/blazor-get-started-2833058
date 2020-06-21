@@ -13,26 +13,31 @@
     }
 }
 <li class="nav-item px-3">
+    <EditForm Model="@newFrequency" OnValidSubmit="AddFrequency">
+        <DataAnnotationsValidator />
     <div class="input-group">
-        <input @bind="name" placeholder="New Frequency" class="form-control" />
+        <InputText @bind-Value="newFrequency.Name" placeholder="New Frequency" class="form-control" />
         <div class="input-group-append">
-            <button @onclick="AddFrequencyClick" type="button" class="btn btn-secondary"><span class="oi oi-plus"></span></button>
+            <button type="submit" class="btn btn-secondary"><span class="oi oi-plus"></span></button>
         </div>
     </div>
+    <ValidationMessage For="@(() => newFrequency.Name)" />
+    </EditForm>
 </li>
 
 @code
 {
-    private string name = "";
+    private NewFrequency newFrequency {get;set;} = new NewFrequency();
     protected override void OnInitialized()
     {
         data.UdpatedFrequencies += StateHasChanged;
         data.GetFrequencies().ConfigureAwait(false);
     }
 
-    void AddFrequencyClick()
+    async Task AddFrequency()
     {
-        data.AddFrequency(name).ConfigureAwait(false);
-        name = "";
+        var name = newFrequency.Name;
+        newFrequency.Name = "";
+        await data.AddFrequency(name);
     }
 }
