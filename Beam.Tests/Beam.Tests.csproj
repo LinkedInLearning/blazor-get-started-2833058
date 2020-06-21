@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="2.1.6" />
     <PackageReference Include="bunit.core" Version="1.0.0-beta-7" />
     <PackageReference Include="bunit.web" Version="1.0.0-beta-7" />
     <PackageReference Include="bunit.xunit" Version="1.0.0-beta-7" />
