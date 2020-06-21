@@ -14,7 +14,7 @@ namespace Beam.Server.Controllers
             _context = context;
         }
 
-        [HttpGet("[action]/{Username}")]
+        [HttpGet]
         public User Get()
         {
             var appUser = _context.AppUsers.FirstOrDefault(ap => ap.Username == User.Identity.Name);

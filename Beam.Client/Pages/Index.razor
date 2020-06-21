@@ -1,7 +1,14 @@
 ﻿@page "/"
-<h2>Welcome to BEAM</h2>
+<AuthorizeView>
+    <Authorized>
+        <h2>Welcome to BEAM, @context.User.Identity.Name</h2>
 
-<p>
-    <span class="oi oi-arrow-thick-left"></span>
-    <span>Select a Frequency, or create a new one</span>
-</p>
+        <p>
+            <span class="oi oi-arrow-thick-left"></span>
+            <span>Select a Frequency, or create a new one</span>
+        </p>
+    </Authorized>
+    <Authorizing>
+        <h2>Logging In...</h2>
+    </Authorizing>
+</AuthorizeView>

@@ -1,16 +1,10 @@
 @page "/settings"
 @inject IDataService data
-
-<span>Username</span>
-<div class="input-group">
-    <label class="form-control">@name</label>
-</div>
-
-@code{
-    private string name = "";
-
-    protected override void OnInitialized()
-    {
-        name = data.CurrentUser.Name;
-    }
-}
+<AuthorizeView>
+    <Authorized>
+        <span>Username</span>
+        <div class="input-group">
+            <label class="form-control">@context.User.Identity.Name</label>
+        </div>        
+    </Authorized>
+</AuthorizeView>

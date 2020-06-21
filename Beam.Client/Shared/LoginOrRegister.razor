@@ -1,0 +1,48 @@
+@page "/login"
+@layout LoginLayout
+@inject NavigationManager navigationManager
+@inject BeamAuthenticationStateProvider authStateProvider
+<h2> Login or Register </h2>
+<div class="col-6">
+    <div class="form-group">
+        <input id="inputUsername" class="form-control" @bind="login.Username" autofocus placeholder="Username" />
+    </div>
+    <div class="form-group">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" @bind="login.Password" />
+    </div>
+    <button class="btn btn-primary btn-block" type="button" @onclick="SignIn">Sign in</button>
+    <button class="btn btn-secondary btn-block" type="button" @onclick="Register">Register</button>
+    <label class="text-danger">@error</label>
+</div>
+@code{
+   Beam.Shared.Login login { get; set; } = new Beam.Shared.Login();
+    string error { get; set; }
+    async Task SignIn()
+    {
+        error = null;
+        try
+        {
+            await authStateProvider.Login(login);
+            navigationManager.NavigateTo("");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+    async Task Register()
+    {
+        error = null;
+        try
+        {
+            await authStateProvider.Register(login);
+            navigationManager.NavigateTo("");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+
+    }
+}

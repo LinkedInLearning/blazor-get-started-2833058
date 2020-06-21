@@ -1,14 +1,41 @@
 ﻿@inherits LayoutComponentBase
-
+@inject NavigationManager navigationManager
+@inject BeamAuthenticationStateProvider authStateProvider
 <div class="sidebar">
     <NavPanel />
 </div>
 
 <div class="main">
     <div class="top-row px-4">
+        <AuthorizeView>
+            <Authorized>
+                <button type="button" class="btn btn-link" @onclick="Logout">Logout</button>
+            </Authorized>
+            <NotAuthorized>
+                <NavLink class="btn btn-link" href="/login">Login</NavLink>
+            </NotAuthorized>
+        </AuthorizeView>
     </div>
 
     <div class="content px-4">
         @Body
     </div>
 </div>
+@code{
+    [CascadingParameter]
+    Task<AuthenticationState> AuthenticationState { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+    }
+
+    async Task Logout()
+    {
+        await authStateProvider.Logout();
+        navigationManager.NavigateTo("/login");
+    }
+}
