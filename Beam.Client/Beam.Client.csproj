@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Beam.Shared\Beam.Shared.csproj" />
+    <ProjectReference Include="..\Beam.Animation\Beam.Animation.csproj" />
   </ItemGroup>
 
 </Project>

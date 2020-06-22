@@ -2,7 +2,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
 
-namespace Beam.Client.Services
+namespace Beam.Animation
 {
     public class AnimationService{
         private IJSRuntime _jsRuntime;

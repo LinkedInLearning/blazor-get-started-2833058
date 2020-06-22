@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Beam.Client.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blazored.LocalStorage;
+using Beam.Animation;
 
 namespace Beam.Client
 {

@@ -45,7 +45,7 @@
         position = position + .01;
         if (position >= 1.2) {
             position = -1.5;
-            DotNet.invokeMethodAsync("Beam.Client", "BeamPassedBy");
+            DotNet.invokeMethodAsync("Beam.Animation", "BeamPassedBy");
         }
         mesh.position.set(position, 0, 0);
         renderer.render(scene, camera);
