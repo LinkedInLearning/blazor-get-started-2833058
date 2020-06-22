@@ -20,6 +20,12 @@
 
     public bool HideLoading { get; set; } = false;
 
+    object[] keyFrames = new[]
+    {
+        new { opacity = 0.0, offset = 0.0 },
+        new { opacity = 0.9, offset = 0.6 },
+        new { opacity = 1.0, offset = 1.0 }
+    };
 
     protected override void OnParametersSet()
     {
