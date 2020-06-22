@@ -2,7 +2,7 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime jsRuntime;
 <p>
-    <Card Title="Cast a New Ray:">
+    <Beam.Client.Pages.Card Title="Cast a New Ray:">
         <EditForm OnValidSubmit="CastRay" Model="@newRay" OnInvalidSubmit="FocusInputArea">
             <DataAnnotationsValidator />
         <div class="input-group" @ref="RayInputGroup">
@@ -16,7 +16,7 @@
         </div>
          <ValidationMessage For="@(() => newRay.Text)" />
         </EditForm>
-    </Card>
+    </Beam.Client.Pages.Card>
 </p>
 
 @code{

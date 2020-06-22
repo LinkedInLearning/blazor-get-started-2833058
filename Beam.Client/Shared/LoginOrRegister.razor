@@ -2,18 +2,18 @@
 @layout LoginLayout
 @inject NavigationManager navigationManager
 @inject BeamAuthenticationStateProvider authStateProvider
-<h2> Login or Register </h2>
-<div class="col-6">
-    <div class="form-group">
-        <input id="inputUsername" class="form-control" @bind="login.Username" autofocus placeholder="Username" />
-    </div>
-    <div class="form-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" @bind="login.Password" />
-    </div>
-    <button class="btn btn-primary btn-block" type="button" @onclick="SignIn">Sign in</button>
-    <button class="btn btn-secondary btn-block" type="button" @onclick="Register">Register</button>
-    <label class="text-danger">@error</label>
-</div>
+<Heading Size="HeadingSize.Is2"> Login or Register </Heading>
+<Column ColumnSize="ColumnSize.Is6">
+    <Field>
+        <TextEdit id="inputUsername" @bind-Text="login.Username" autofocus Placeholder="Username" />
+    </Field>
+    <Field>
+        <TextEdit Role="TextRole.Password" Placeholder="Password" @bind-Text="login.Password" />
+    </Field>
+    <Button Color="Color.Primary" Block="true" Clicked="@SignIn">SignIn</Button>
+    <Button Color="Color.Secondary" Block="true" Clicked="@Register">Register</Button>
+    <Text Color="TextColor.Danger">@error</Text>
+</Column>
 @code{
    Beam.Shared.Login login { get; set; } = new Beam.Shared.Login();
     string error { get; set; }
