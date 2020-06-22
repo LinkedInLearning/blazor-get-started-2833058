@@ -1,10 +1,11 @@
 @inject IDataService data
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime jsRuntime;
 <p>
     <Card Title="Cast a New Ray:">
-        <EditForm OnValidSubmit="CastRay" Model="@newRay">
+        <EditForm OnValidSubmit="CastRay" Model="@newRay" OnInvalidSubmit="FocusInputArea">
             <DataAnnotationsValidator />
-        <div class="input-group">
+        <div class="input-group" @ref="RayInputGroup">
             <InputTextArea @bind-Value="newRay.Text" class="form-control" @oninput="NewRayTextUpdated" />
             <div class="input-group-append">
                 <button @onclick="ClearText" type="button" class="btn btn-outline-secondary">
@@ -25,12 +26,16 @@
     public EventCallback<RayToCast> newRayChanged { get; set; }
     [Parameter]
     public EventCallback<string> RayCast { get; set; }
-
+    ElementReference RayInputGroup { get; set; }
     protected override async Task OnParametersSetAsync()
     {
         var storedRayText = await localStorage.GetItemAsync<string>(nameof(newRay));
         if (!string.IsNullOrWhiteSpace(storedRayText))
             newRay.Text = storedRayText;
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await FocusInputArea();
     }
 
     async Task CastRay()
@@ -42,12 +47,17 @@
 
     async Task ClearText()
     {
-        newRay.Text = "";
         await localStorage.SetItemAsync(nameof(newRay), "");
+        newRay.Text = "";
     }
 
     async Task NewRayTextUpdated(ChangeEventArgs eventArgs)
     {
         await localStorage.SetItemAsync(nameof(newRay), eventArgs.Value);
+    }
+
+    async Task FocusInputArea()
+    {
+        await jsRuntime.InvokeVoidAsync("UIHelpers.focusFirstChild", RayInputGroup);
     }
 }
