@@ -1,20 +1,24 @@
 @page "/frequency/{id:int}"
 @inject IDataService data
+@inject IJSRuntime jsRuntime
 
 <RayInput @bind-newRay="newRay" RayCast="@RayCast" />
 <div class="spinner-border" role="status" hidden="@HideLoading">
   <span class="sr-only">Loading...</span>
 </div>
-@foreach (var ray in data.Rays)
-{
-    <p>
-        <RayItem ray="@ray" />
-    </p>
-}
-
+<div @ref="rayListContainer">
+    @foreach (var ray in data.Rays)
+    {
+        <p>
+            <RayItem ray="@ray" />
+        </p>
+    }
+</div>
 @code{
     [Parameter]
     public int Id { get; set; }
+
+    ElementReference rayListContainer;
 
     public RayToCast newRay { get; set; } = new RayToCast();
 
@@ -27,10 +31,21 @@
         new { opacity = 1.0, offset = 1.0 }
     };
 
+    bool rayCastCalled;
+
     protected override void OnParametersSet()
     {
         data.UpdatedRays += UpdateForNewRays;
         data.SelectedFrequency = Id;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (rayCastCalled)
+        {
+            await jsRuntime.InvokeVoidAsync("UIHelpers.animateElement", rayListContainer, keyFrames, 2000);
+            rayCastCalled = false;
+        }
     }
 
     void UpdateForNewRays()
@@ -46,6 +61,7 @@
     void RayCast()
     {
         HideLoading = false;
+        rayCastCalled = true;
     }
 
 }

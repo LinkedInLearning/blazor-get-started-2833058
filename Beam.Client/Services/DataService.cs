@@ -11,7 +11,12 @@ namespace Beam.Client.Services
     public class DataService : IDataService
     {
         public IReadOnlyList<Frequency> Frequencies { get; private set; }
-        public IReadOnlyList<Ray> Rays { get; private set; } = new List<Ray>();
+        private IReadOnlyList<Ray> _rays = new List<Ray>();
+        public IReadOnlyList<Ray> Rays
+        {
+            get => _rays;
+            private set => _rays = value.OrderByDescending(r => r.RayId).ToList();
+        }
         public User CurrentUser { get; set; }
 
         private int? selectedFrequency;
@@ -63,7 +68,7 @@ namespace Beam.Client.Services
             return await _apiService.UserRays(name ?? CurrentUser.Name);
         }
 
-        
+
         public async Task AddFrequency(string Name)
         {
             Frequencies = await _apiService.AddFrequency(new Frequency() { Name = Name });
