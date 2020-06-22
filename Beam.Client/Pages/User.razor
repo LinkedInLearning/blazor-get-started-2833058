@@ -35,13 +35,43 @@
             </GridColumns>
         </TelerikGrid>
     </TabStripTab>
+    <TabStripTab Title="Chart">
+        <TelerikChart>
+            <ChartTitle Text="@($"{Name}'s Rays by Prism Count and Length")" />
+            <ChartCategoryAxes>
+                <ChartCategoryAxis BaseUnit="ChartCategoryAxisBaseUnit.Hours" Type="ChartCategoryAxisType.Date">
+                    <ChartCategoryAxisLabels Format="{0:HH:mm }" />
+                </ChartCategoryAxis>
+            </ChartCategoryAxes>
+            <ChartSeriesItems>
+                <ChartSeries Type="ChartSeriesType.Line"
+                            Data="@ChartData"
+                            CategoryField="@nameof(RayChartData.Time)"
+                            Field="@nameof(RayChartData.TextLength)"
+                             Name="Text Length">
+                </ChartSeries>
+                <ChartSeries Type="ChartSeriesType.Column"
+                            Data="@ChartData"
+                            CategoryField="@nameof(RayChartData.Time)"
+                            Field="@nameof(RayChartData.TimesPrismed)" 
+                            Name="Times Prismed">
+                            <ChartSeriesLabels Visible="true" />
+                </ChartSeries>
+            </ChartSeriesItems>
+            <ChartLegend Position="Telerik.Blazor.ChartLegendPosition.Bottom">
+            </ChartLegend>           
+        </TelerikChart>
+    </TabStripTab>
 </TelerikTabStrip>
 
 @code{
     [Parameter]
     public string Name { get; set; }
     List<Ray> Rays = new List<Ray>();
-    protected override void OnInitialized(){
+    List<RayChartData> ChartData = new List<RayChartData>();
+    
+    protected override void OnInitialized()
+    {
         data.UpdatedRays += async () =>
         {
             Rays = await data.GetUserRays(Name);
@@ -51,5 +81,20 @@
     protected override async Task OnParametersSetAsync()
     {
         Rays = await data.GetUserRays(Name);
+        ChartData = Rays.Select(r => new RayChartData(r)).ToList();
+    }
+
+    private class RayChartData
+    {
+        public int TextLength { get; set; }
+        public int TimesPrismed { get; set; }
+        public DateTime Time { get; set; }
+        public
+        RayChartData(Ray ray)
+        {
+            Time = ray.RayCastDate;
+            TextLength = ray.Text.Length;
+            TimesPrismed = ray.PrismCount;
+        }
     }
 }
