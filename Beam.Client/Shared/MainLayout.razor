@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager navigationManager
 @inject BeamAuthenticationStateProvider authStateProvider
+<TelerikRootComponent>
 <div class="sidebar">
     <NavPanel />
 </div>
@@ -21,6 +22,7 @@
         @Body
     </div>
 </div>
+</TelerikRootComponent>
 @code{
     [CascadingParameter]
     Task<AuthenticationState> AuthenticationState { get; set; }

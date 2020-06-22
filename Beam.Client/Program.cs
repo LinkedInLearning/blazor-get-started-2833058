@@ -30,6 +30,8 @@ namespace Beam.Client
             builder.Services.AddBlazoredLocalStorage();
 
             builder.Services.AddSingleton<AnimationService>();
+            
+            builder.Services.AddTelerikBlazor();
 
             await builder.Build().RunAsync();
         }

@@ -4,13 +4,38 @@
 @using Beam.Shared
 @inject IDataService data
 <h2>User Rays</h2>
-
-@foreach (var ray in Rays)
-{
-    <p>
-        <RayItem ray="@ray" />
-    </p>
-}
+<TelerikTabStrip>
+    <TabStripTab Title="List">
+        @foreach (var ray in Rays)
+        {
+            <p>
+                <RayItem ray="@ray" />
+            </p>
+        }
+    </TabStripTab>
+    <TabStripTab Title="Grid">
+        <TelerikGrid Data="@Rays" Sortable="true" Pageable="true" 
+            PageSize="10" FilterMode="GridFilterMode.FilterRow">
+            <GridColumns>
+                <GridColumn Field="@nameof(Ray.Text)" Title="Ray" Width="600px" />
+                <GridColumn Field="@nameof(Ray.PrismCount)" Title="Times Prismed" />
+                <GridColumn Field="@nameof(Ray.RayCastDate)" Title="Date">
+                    <Template>
+                        @((context as Ray)?.RayCastDate.ToLocalTime().ToString())
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(Ray.UsersPrismed)" Filterable="false" Sortable="false">
+                    <Template>
+                        @foreach (var user in (context as Ray)?.UsersPrismed)
+                        {
+                            <p>@user</p>
+                        }
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </TelerikGrid>
+    </TabStripTab>
+</TelerikTabStrip>
 
 @code{
     [Parameter]
