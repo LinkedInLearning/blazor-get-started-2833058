@@ -4,13 +4,41 @@
 @using Beam.Shared
 @inject IDataService data
 <h2>User Rays</h2>
+<RadzenTabs>
+    <Tabs>
+        <RadzenTabsItem Text="List">
+            @foreach (var ray in Rays)
+            {
+                <p>
+                    <RayItem ray="@ray" />
+                </p>
+            }
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Grid">
+            <RadzenGrid Data="@Rays" TItem="Ray" AllowFiltering="true" AllowPaging="true" PageSize="4" AllowSorting="true">
+                <Columns>
+                    <RadzenGridColumn TItem="Ray" Property="RayId" Title="Id" />
+                    <RadzenGridColumn TItem="Ray" Property="Text" Title="Text" Width="400px" />
+                    <RadzenGridColumn TItem="Ray" Property="PrismCount" Title="Times Prismed" />
+                    <RadzenGridColumn TItem="Ray" Property="RayCastDate" Title="Date">
+                        <Template Context="item">
+                            @item.RayCastDate.ToLocalTime().ToString()
+                        </Template>
+                    </RadzenGridColumn>
+                    <RadzenGridColumn TItem="Ray" Property="UsersPrismed" Sortable="false" Title="Users who Prismed">
+                        <Template Context="item">
+                            @foreach (var user in item.UsersPrismed)
+                            {
+                                <p>@user</p>
+                            }
+                        </Template>
+                    </RadzenGridColumn>
+                </Columns>
+            </RadzenGrid>
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
 
-@foreach (var ray in Rays)
-{
-    <p>
-        <RayItem ray="@ray" />
-    </p>
-}
 
 @code{
     [Parameter]
