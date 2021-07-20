@@ -1,11 +1,20 @@
 # Blazor: Getting Started
-This is the repository for the LinkedIn Learning course Blazor: Getting Started. The full course is available from [LinkedIn Learning](LICOURSEURL).
+This is the repository for the LinkedIn Learning course Blazor: Getting Started. The full course is available from [LinkedIn Learning][lil-course-url].
 
-[![Blazor: Getting Started](COURSEIMAGE)](LICOURSEURL)
+![Blazor: Getting Started][lil-thumbnail-url] 
+Get started with Microsoft Blazor, the framework for building rich web apps with C# and .NET. Learn how Blazor allows .NET code to run in the browser, allowing programmers to leverage their existing .NET skills for front-end development. Explore the Blazor component model, including topics such as routing, dependency injection, data binding, and layouts. Then discover the debugging and unit testing workflow for Blazor apps, and see how to validate form data. Instructor Richard Goforth—a senior software architect and consultant—also shows how to implement authentication and authorization and interact with JavaScript code. Plus, learn how to take advantage of Blazor component libraries to save time and create your own libraries in order to package and reuse code across projects.
 
-Get Started with Blazor by building out features for BEAM, The best / worst pun-focused social media application ever.
-Learn everything that you need to know to get started with [Blazor](blazor.net).
-This covers building components, dependency injection and services, accessing JavaScript, Unit Testing, Authentication, External libraries and more!
+### Learning objectives
+ - Creating a new Blazor project
+ - Working with Blazor components
+ - Routing in Blazor
+ - Data binding and events
+ - Debugging
+ - Unit testing
+ - Authorization in Blazor apps
+ - Maintaining state
+ - Calling JavaScript from Blazor
+ - Creating and using component libraries
 
 ## Instructions
 This repository has branches for each of the videos in the course. You can use the branch pop up menu in github to switch to a specific branch and take a look at the course at that stage, or you can add `/tree/BRANCH_NAME` to the URL to go to the branch you want to access.
@@ -43,3 +52,19 @@ Features
 - EF Core
 
 Develop, Build and Run in a container locally (with docker desktop and the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension or in [Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/)
+
+
+### Instructor
+
+**Richard Goforth**
+
+_Software Architect and Consultant_
+
+[View on LinkedIn](https://www.linkedin.com/in/richard-goforth-83582b33/?trk=lil_instructor)
+
+[Other Courses by the instructor](https://www.linkedin.com/learning/instructors/richard-goforth)
+
+[0]: # (Replace these placeholder URLs with actual course URLs)
+
+[lil-course-url]: https://www.linkedin.com/learning/blazor-getting-started/
+[lil-thumbnail-url]: https://cdn.lynda.com/course/2833058/2833058-1597766168005-16x9.jpg
