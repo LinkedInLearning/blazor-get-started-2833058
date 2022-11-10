@@ -9,7 +9,7 @@ services:
     image: "mcr.microsoft.com/mssql/server"
     environment:
         #Never open your dev env sql container publicly 
-        SA_PASSWORD: "@#^!fcIen&*asd"
+        SA_PASSWORD: "@#^fcIen&*asd"
         ACCEPT_EULA: "Y"
   beam:
     build:
